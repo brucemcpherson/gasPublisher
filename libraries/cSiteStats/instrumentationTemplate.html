@@ -1,0 +1,102 @@
+<style>
+.stats {
+    display: none;
+}
+
+.showstats:hover + .stats {
+    display: block;
+}
+</style>
+
+
+<div class="showstats">Hover here to see page stats</div>
+
+<canvas class="stats" id="canvas" style="border:2px solid black;" width="600" height="120"></canvas>
+
+<script>
+  function plotNews ( cx,  data , options ) {
+    var left = options.xStart,top;
+    if(!data) {
+      fillText (options.yStart ,left, 'no site stats data',options.errorColor) ;
+      return ;
+    }
+    
+    data.analytics.forEach ( function (item,j) {
+      top = options.yStart;
+      //the dimension title
+      fillText (top,left, item.name,options.textColor) ;
+      top += options.textHeight;
+
+      // the topic popularity
+      var off = left + filler (top,left , options.barLength * item.ratios.topicRank, options.barColor );
+      filler (top,off, options.barLength * (1-item.ratios.topicRank),options.voidColor);
+      fillText (top + options.barHeight * .5, left + options.textPad,'topic popularity rank' , options.barTextColor) ;
+      if(!j)fillText (top + options.barHeight *.5, left + options.barLength + options.textPad, data.topic.name, options.textColor);
+      top += options.barHeight + options.verticalBetween;
+      
+      // the topic pageviews
+      var off = left + filler (top,left , options.barLength * item.ratios.pageViewsOfTopic, options.barColor );
+      off += filler (top,off, options.barLength * (1-item.ratios.pageViewsOfTopic),options.voidColor);
+      fillText (top + options.barHeight * .5, left + options.textPad,'topic %pageviews' , options.barTextColor) ;
+      fillText (top + options.barHeight *.5, left + options.barLength + options.textPad,item.pageViewsOfTopic.toString(), options.textColor);
+      top += options.barHeight + options.verticalBetween;
+
+      // the subject  popularity
+      var off = left + filler (top,left , options.barLength * item.ratios.withinTopicRank, options.barColor );
+      off += filler (top,off, options.barLength * (1-item.ratios.withinTopicRank),options.voidColor);
+      fillText (top + options.barHeight * .5, left + options.textPad,'page rank within topic' , options.barTextColor) ;
+      if(!j)fillText (top + options.barHeight *.5, left + options.barLength + options.textPad,data.page.name, options.textColor);
+      top += options.barHeight + options.verticalBetween;
+            
+      // the subject pageviews
+      var off = left + filler (top,left , options.barLength * item.ratios.subjectRank, options.barColor );
+      off += filler (top,off, options.barLength * (1-item.ratios.subjectRank),options.voidColor);
+      fillText (top + options.barHeight * .5, left + options.textPad,'%pageviews within topic' , options.barTextColor) ;
+      fillText (top + options.barHeight *.5, left + options.barLength + options.textPad,item.pageViews.toString(), options.textColor);
+      
+      left += options.barLength + options.horizontalBetween + (j ? options.textSpace2 : options.textSpace) +options.xStart;
+    });
+
+    function filler (top,left,width,color) {
+        cx.fillStyle = color;
+        cx.fillRect (left ,top,width, options.barHeight);
+        return width;
+    }
+    function fillText (top,left, text,color,align) {
+        cx.font = options.textPx;
+        cx.fillStyle = color;
+        cx.textAlign = align || 'left';
+        cx.fillText(text, left, top);
+    }
+
+  }
+  
+  
+  
+  function doIt (dat) {
+      var canvas = document.getElementById('canvas');
+      if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+        plotNews (ctx , dat, {
+          barLength:140,
+          barHeight:18,
+          verticalBetween:3,
+          horizontalBetween:10,
+          textHeight:8,
+          barColor:'DarkOrange',
+          voidColor:'Gray',
+          textColor:'Gray',
+          barTextColor:'white',
+          xStart:10,
+          yStart:10,
+          textSpace:80,
+          textPx:'10px',
+          textPad:2,
+          errorColor:'Red',
+          textSpace2:10
+      });
+    }
+  }
+</script> 
+
+
