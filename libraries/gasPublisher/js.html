@@ -1,0 +1,26 @@
+<html>
+<head>
+
+</head>
+<body>
+
+  <div>    
+    <? var content = getSource(eArgs); ?>
+    <? if (content.error) { 
+      var errors = JSON.stringify (content, null , 2 ) ; ?>
+      <div class = "error">
+       <?= errors ?>
+      </div>
+    <? } else  { ?>
+      
+    <div class = "module">
+      <span id="working">Module: <?= content.parameters.module ?></span>
+      <span>Library: <?= content.parameters.library ?></span>
+    </div>   
+    <div class = "code pretty"><pre class="prettyprint lang-js"><?= content.results.data ?></pre>
+    </div>
+    <? } ?>
+  </div>
+<div id="report"></div>
+</body>
+</html>
