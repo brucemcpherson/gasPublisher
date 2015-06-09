@@ -1,0 +1,54 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
+  <link href="http://caja.appspot.com/prettify.css" type="text/css" rel="stylesheet" />
+  <link href="http://xliberation.com/p/css/gaspub.css" type="text/css" rel="stylesheet" />
+  <script src="http://caja.appspot.com/prettify.js" type="text/javascript"></script>
+
+ <script>
+  $(document).ready(function () {
+   // any jQueryness can happen here...
+    var thingsThatScrewUp = [ 'toString', 'hasOwnProperty'],t;
+    
+    $('.pretty').each( function(i,elem) {
+       var c = $(elem).text() ;
+       // disguise
+       for (var i = 0 ; i < thingsThatScrewUp.length ; i++ ) {
+        c = c.replace(new RegExp("." + thingsThatScrewUp[i], 'g'),".sandw_" + i + "_ch");
+       }
+       try {
+         t = prettyPrintOne(c);
+       }
+       catch (err) {
+        $('#report').html(err + c);
+       }
+       // undisguise
+       for (var i = 0 ; i < thingsThatScrewUp.length ; i++ ) {
+         t = t.replace(new RegExp("sandw_" + i + "_ch", 'g'),thingsThatScrewUp[i]);
+       }
+       $(elem).html("<pre class='code pretty prettyprint'>" + t + "</pre>");
+      });
+      $('#working').html('Module:');
+  });
+
+  </script>
+</head>
+<body>
+  <div>    
+    <? var content = getSource(eArgs); ?>
+    <? if (content.error) { 
+      var errors = JSON.stringify (content, null , 2 ) ; ?>
+      <div class = "error">
+       <?= errors ?>
+      </div>
+    <? } else  { ?>
+    <div class = "module"><span id="working">working on ... </span>
+     <?= content.parameters.module ?>
+    </div>   
+    <div class = "code pretty"><pre class="prettyprint lang-js"><?= content.results.data ?></pre>
+    </div>
+    <? } ?>
+  </div>
+<div id="report"></div>
+</body>
+</html>
