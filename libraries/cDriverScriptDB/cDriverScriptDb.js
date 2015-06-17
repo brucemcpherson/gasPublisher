@@ -14,7 +14,7 @@ function getLibraryInfo () {
   return {
     info: {
       name:'cDriverScriptDb',
-      version:'2.00',
+      version:'2.01',
       key:'MQS7yEChG0mh1Ucf_UhV-vKi_d-phDA33',
     },
     dependencies:[
