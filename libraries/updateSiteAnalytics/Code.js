@@ -586,10 +586,10 @@ function refreshDb (options,pages) {
  * @param {Date} optEnd end date
  * @return {Array.objects} array of objects showing url and pageviews
  **/
-function getAnalytics(propertyId,optStart,optEnd) {
+function getAnalytics(propertyId,optStart,optEnd,optDimension) {
 
   // get all data ever for this property
-  var data = pageViews (propertyId, optStart || new Date(2010,0 ,1 ), optEnd || new Date());
+  var data = pageViews (propertyId, optStart || new Date(2010,0 ,1 ), optEnd || new Date(), optDimension || 'ga:pagePath');
   // clean up into a json object
   return data.rows.map ( function (row) {
     var i =0;
@@ -603,10 +603,10 @@ function getAnalytics(propertyId,optStart,optEnd) {
   });
 }
 
-function pageViews (propertyId, start , finish) {
+function pageViews (propertyId, start , finish, dimensions) {
   return cUseful.rateLimitExpBackoff(function () { 
     return Analytics.Data.Ga.get('ga:' + propertyId , gaDate(start), gaDate(finish),  'ga:pageViews', {
-      "dimensions":'ga:pagePath',
+      "dimensions":  dimensions,
       "max-results":20000
     } );
   });
