@@ -5,7 +5,7 @@ function getLibraryInfo () {
   return { 
     info: {
       name:'cDependencyService',
-      version:'0.0.6',
+      version:'0.0.7',
       key:'Me90hDkr73ajS2dd-CDc4V6i_d-phDA33',
       description:'dependency service to get libraries associated with a script',
       share:'https://script.google.com/d/1QMZceXe24Rwfgw5jzXlqLsvoBLbmk_lvDBYB5K403wdTVeNu6-uzP5g8/edit?usp=sharing'
@@ -167,50 +167,39 @@ function DependencyService() {
        libObs = [];
        
        p = 0;
-       workData = data;
        
+       // this one works better in reverse
+       workData = data.reverse();
+      
        // find the data
-       ignoreTill (['8']);
-       var start = p++;
+       ignoreTill (['/']);
+       p++;
+       ignoreTill (['']);
+       var start = p;
        
-       ignoreTill (["/"]);
+       ignoreTill (["1j"]);
        var finish = p;
       
-       // this is the cusom part
-       workData = data.slice ( start+1 , finish); 
+       // this is the google part
+       workData = data.slice ( start , finish); 
        p = 0;
-       
+      
        // get all the dependencies
        while (p < workData.length) {
-         
-         // used one is introduced by 1j
-         if (cUseful.isUndefined(ignoreTill(["1j"]))) {
-           // force exit - we're done
-           p = workData.length;
-         }
-         
-         else {
-           
-           // details being with f
-           ignoreTill ("f");
+         if (!cUseful.isUndefined(ignoreTill (['']))) {
            var libOb = {};
-           libOb.library = workData[++p]; // eg Drive API
-           libOb.sdc = workData[++p]; // eg drive
-           libOb.key = workData[++p]; // the url eg https://developers.google.com/apps-script/advanced/drive
-           libOb.identifier = workData[++p]; // eg Drive	
+           libOb.library = libOb.identifier = libOb.key = workData[++p]; // eg Drive API
+           libOb.sdc = libOb.key = workData[++p]; // eg drive	
            libOb.version = workData[++p]; // eg v2        
-
            // done
            libObs.push(libOb);
-           p++;
          }
-         
        }
-
        return libObs;
        
      }
      
+    
      function ignore () {
        while (p < workData.length && 'delkf'.indexOf(workData[p]) >= 0 ) {
          p++;
@@ -266,15 +255,22 @@ function DependencyService() {
     return cUrlResult.urlExecute( self.getDependencyUrl() , {
         method:"POST",
         muteHttpExceptions:true,
-        payload:'7|1|4|' + self.getGwtUrl() + '|62E5DDB596B94438DAD2C2B90696CEF0|_|getDependencies|1|2|3|4|0|',
+        payload:'7|1|4|' + self.getGwtUrl() + '|6B9902874FFB0209D71ED9EB07886D5E|_|getDependencies|1|2|3|4|0|',
         headers: {
-          'X-GWT-Permutation':'2C70220EABC9BBFDA8F26FCE531090C3'
+          'X-GWT-Permutation':'9C8055A1FEB9C7A543C47D445909DC53'
         },
         contentType:'text/x-gwt-rpc;charset=UTF-8'
       }, self.accessToken);
 
-   };
-
+   }
+// discovered 9/3/15
+//   payload:'7|1|4|' + self.getGwtUrl() + '|62E5DDB596B94438DAD2C2B90696CEF0|_|getDependencies|1|2|3|4|0|',
+//     headers: {
+//       'X-GWT-Permutation':'2C70220EABC9BBFDA8F26FCE531090C3'
+//     },
+// discovered 9/22/15  
+//X-GWT-Permutation:9C8055A1FEB9C7A543C47D445909DC53
+//7|1|4|https://script.google.com/a/mcpher.com/d/1TphrUjRcx5sGlhgkfjB2R9MOZe3cPF7wK1LV8yVNoFCAwRTeNyXVsDFd/gwt/|6B9902874FFB0209D71ED9EB07886D5E|_|getDependencies|1|2|3|4|0|
    /**
     * get the url
     * @return {string} the base url
