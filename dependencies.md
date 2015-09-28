@@ -1,5 +1,5 @@
 # Google Apps Script Project: gasPublisher
-This repo (gasPublisher) was automatically updated on 15 September 2015 11:47:16 BST by GasGit
+This repo (gasPublisher) was automatically updated on 28 September 2015 17:42:23 BST by GasGit
 
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation") or [contact me on G+](https://plus.google.com/+BruceMcpherson "Bruce McPherson - GDE")
 ## Details for Apps Script project gasPublisher
@@ -99,7 +99,7 @@ gasGit| gasGit|M6Heerx1czXDLw7NL4S7pdKi_d-phDA33|8|no|[here](libraries/gasGit "l
 cEzyOauth2| cEzyOauth2|MSaYlTXSVk7FAqpHNCcqBv6i_d-phDA33|17|no|[here](libraries/cEzyOauth2 "library source")
 cDriveJsonApi| cDriveJsonApi|MvIo2UPbHoLDhAVcRHrI-VSz3TLx7pV4j|8|no|[here](libraries/cDriveJsonApi "library source")
 cUrlResult| cUrlResult|M59PE-C_VqcthwNDmXB9gsCz3TLx7pV4j|11|no|[here](libraries/cUrlResult "library source")
-cDependencyService| cDependencyService|Me90hDkr73ajS2dd-CDc4V6i_d-phDA33|18|no|[here](libraries/cDependencyService "library source")
+cDependencyService| cDependencyService|Me90hDkr73ajS2dd-CDc4V6i_d-phDA33|21|no|[here](libraries/cDependencyService "library source")
 gasPublisher| gasPublisher|MN3XaA9x9ZWTMntaOQ9DKbKi_d-phDA33|112|no|[here](libraries/gasPublisher "library source")
 customersDB| customersDB|MI-L-1vfaDSDBErs52Xg6PSz3TLx7pV4j|3|no|no
 cDriverScriptDB| cDriverScriptDB|MQS7yEChG0mh1Ucf_UhV-vKi_d-phDA33|2|no|[here](libraries/cDriverScriptDB "library source")
@@ -165,8 +165,6 @@ blisterTest| blisterTest|MDhYI6AGoJN1qTO6NQkJ0Hiz3TLx7pV4j|3|no|no
 parseCom| parseCom|MMlc_J-9Um2UIjgGFjcrhRCz3TLx7pV4j|5|no|[here](libraries/parseCom "library source")
 scriptDbDispatch| scriptDbDispatch|MKMHXKUzab14RRHVkt_Vk2Ki_d-phDA33|4|yes|no
 ### Enabled Google Services
-*library*|*identifier*|*version*
---- | --- | --- 
-Drive API| Drive|v2
+no libraries discovered
 ###Need more detail ?
 You can see [full project info as json here](info.json)
