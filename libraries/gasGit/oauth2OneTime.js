@@ -9,21 +9,24 @@
  * @return {void}
  */
 function oneTimeSetProperties () {
-  setAuthenticationPackage_ ({ 
-    clientId : "xxxx.apps.googleusercontent.com",
-    clientSecret : "xxx",
-    scopes : [
-      'https://www.googleapis.com/auth/drive',
-      'https://www.googleapis.com/auth/drive.scripts'
-    ],
-    service: 'google',
-    packageName: 'script'
-  });
 
-
-  setAuthenticationPackage_ ({ 
-    clientId : "xxx",
-    clientSecret : "xxx",
+   // used by all using this script
+  var propertyStore = PropertiesService.getScriptProperties();
+ 
+  
+  cGoa.GoaApp.setPackage (propertyStore , 
+    cGoa.GoaApp.createPackageFromFile (DriveApp , {
+      packageName: 'script',
+      fileId:'0xxxxxxxxxxxc',
+      scopes : cGoa.GoaApp.scopesGoogleExpand (['drive','drive.scripts']),
+      service:'google'
+    }));
+  
+  
+  
+  cGoa.GoaApp.setPackage (propertyStore , { 
+    clientId : "7xxxxxxxxxxxc",
+    clientSecret : "3xxxxxxxxxxxxxxd",
     scopes : [
       'gist',
       'repo'
@@ -31,4 +34,5 @@ function oneTimeSetProperties () {
     service: 'github',
     packageName: 'gasgit'
   });
+
 }
