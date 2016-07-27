@@ -5,7 +5,7 @@ function getLibraryInfo () {
   return { 
     info: {
       name:'cDriveJsonApi',
-      version:'0.0.1',
+      version:'0.0.7',
       key:'MvIo2UPbHoLDhAVcRHrI-VSz3TLx7pV4j',
       description:'drive sdk json API for apps script',
       share:'https://script.google.com/d/1P0ZbhWVxXcYU8kJxtpdzm_tNuoBa34NLAubBUgEqsW7-pvEg5NVppTyx/edit?usp=sharing'
@@ -49,6 +49,20 @@ function DriveJsonApi () {
    * DriverJsonApi.setAccessToken(doGetPattern({} , constructConsentScreen, function (token) { return token; },'script'))
    */
   self.accessToken= null;
+  var lookAhead_ = function(response,attempt) {
+    var code = response.getResponseCode();
+    return (code === 500 && attempt < 3 ) || code === 403;
+  };
+  
+  /**
+   * set a lookahead for a get
+   * @param {function} fun the lookahead function
+   * @return {cDriveJsonApi} self
+   */
+  self.setLookAhead = function (fun) {
+    lookAhead_ = fun;
+    return self;
+  };
   
   self.getEnums = function () {
     return ENUMS;
@@ -143,6 +157,7 @@ function DriveJsonApi () {
       return resultOb;
     }
   };
+
   
  /**
   * given a fileID, return its info
@@ -195,7 +210,7 @@ function DriveJsonApi () {
       function recurse(id, items) {
         // get any scripts here
         var result = self.getChildItems (id, mime, fields,optExtraQueries);
-
+        
         // accumulate script files
         if(result.success) {
           cUseful.arrayAppend(items, result.data.items); 
@@ -353,11 +368,12 @@ function DriveJsonApi () {
    * @return {object} {id:'xxxx'} or null
    */
   self.getFolderFromPath = function (path,optCreate)  {
+    
     return (path || "/").split("/").reduce ( function(prev,current) {
       if (prev && current) {
         // this gets the folder with the name of the current fragment
         var fldrs = self.getFoldersByName(prev.id,current,"items(id)");
-        if(!fldrs.success) {
+        if(!fldrs.success || true) {
           Logger.log(JSON.stringify(fldrs));
         }
         // see if it existed
@@ -387,18 +403,18 @@ function DriveJsonApi () {
   * @return {HTTPResponse}
   */
   self.urlGet = function (url) {
-    return cUrlResult.urlGet(url, self.accessToken);
+    return cUrlResult.urlGet(url, self.accessToken , undefined, lookAhead_);
   };
 
  /**
-  * execute a get
+  * execute a post
   * @param {string} url the url
   * @param {object} payload the payload
   * @param {string} optMethod the method
   * @return {HTTPResponse}
   */
   self.urlPost = function (url,payload,optMethod) {
-    return cUrlResult.urlPost(url, payload, optMethod, self.accessToken);
+    return cUrlResult.urlPost(url, payload, optMethod, self.accessToken,undefined,lookAhead_);
   };
 
   /**
