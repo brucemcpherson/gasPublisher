@@ -508,7 +508,7 @@ function PageTreeObject (parent,page) {
  * @return {Array.Page} all the pages on the site
  **/
 function getPages(site) {
-  
+
   var root = new PageTreeObject (null, site);
   getChildPages (root, site);
   // assume the site has a top level page
@@ -519,15 +519,16 @@ function getPages(site) {
     var result,start = 0,pages=[];
     var pto = new PageTreeObject (parent,page);
     parent.children.push (pto);
-    
+
     // this deals with any limits to get all the children
     while (!result || result.length) {
       Logger.log("working on " + page.getUrl());
+
       var result = cUseful.rateLimitExpBackoff(function () {
         return page.getChildren({
           start: start
-        }); 
-      });
+        });
+      },undefined,undefined,undefined,true);
       Array.prototype.push.apply (pages,result);
       start = pages.length;
     }
@@ -607,10 +608,10 @@ function pageViews (propertyId, start , finish, dimensions) {
   return cUseful.rateLimitExpBackoff(function () { 
     return Analytics.Data.Ga.get('ga:' + propertyId , gaDate(start), gaDate(finish),  'ga:pageViews', {
       "dimensions":  dimensions,
-      "max-results":20000
-    } );
-  });
+        "max-results":20000
+    })});
 }
+
 function gaDate (dt) {
   return Utilities.formatDate(dt, Session.getScriptTimeZone(), 'yyyy-MM-dd');
 }
