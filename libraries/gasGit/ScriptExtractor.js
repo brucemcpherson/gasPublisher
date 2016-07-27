@@ -35,8 +35,15 @@ function ScriptExtractor(dapi,  extractPath) {
   };
 
   var self = this;
+  
   // this is the drive object to use. access token should be already set up
   dapi_ = dapi;
+  
+  // error 500/403 occurs occassionally...
+  dapi_.setLookAhead( function(response,attempt) {
+    var code = response.getResponseCode();
+    return (code === 500 && attempt < 3 ) || code === 403;
+  });
   
   self.setSearch = function (searchPath) {
     searchPath_ = searchPath;
@@ -90,11 +97,12 @@ function ScriptExtractor(dapi,  extractPath) {
   self.getAllMyScripts = function () {
     
     // get the folder where the scripts start from
+
     var scriptRoot = dapi_.getFolderFromPath (searchPath_);
     if(!scriptRoot) {
       throw 'could not find starting folder for scripts ' + searchPath_;
     }
-    
+
     // get all the scripts below this
     var result = dapi_.getRecursiveChildItems (scriptRoot.id, dapi_.getEnums().MIMES.SCRIPT  ,  "'me' in owners");
     return result;
@@ -261,6 +269,7 @@ function ScriptExtractor(dapi,  extractPath) {
    */
   self.getFileContent = function (id, folderTitle, fileName) {
     // now get the media content
+    
     var content = dapi_.getContentById(id);
     if (!content.success) {
       throw "error getting " + fileName + " content for " + folderTitle + ":" + JSON.stringify(content);
