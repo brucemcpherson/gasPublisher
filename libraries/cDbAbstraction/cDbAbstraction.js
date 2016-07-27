@@ -32,7 +32,7 @@ function getLibraryInfo () {
   return { 
     info: {
       name:'cDbAbstraction',
-      version:'2.2.1',
+      version:'2.2.4',
       key:'MHfCjPQlweartW45xYs6hFai_d-phDA33',
       description:'abstraction database handler',
       share:'https://script.google.com/d/1Ddsb4Y-QDUqcw9Fa-rJKM3EhG2caosS9Nhch7vnQWXP7qkaMmb1wjmTl/edit?usp=sharing'
@@ -65,14 +65,13 @@ function DbAbstraction ( driverLibrary , options) {
   var optSpecificCache = options.specificcache;
   var self = this;
   
-  var optOut = optOptOut || false;
+  var optOut = typeof optOptOut === typeof undefined ? true : optOptOut;
   var peanut = optPeanut || '';
   var accessToken = optAccessToken || '';
   var disableCache = optDisableCache || false;
   var cacheCommunity = options.cachecommunity;
   var currentLock_ = null;
   var private = options.private;
-  
   
   /** 
    * give access to constants
@@ -171,7 +170,7 @@ function DbAbstraction ( driverLibrary , options) {
   this.unFlatten = function (obs) {
     if (!obs) return null;
     
-    var flat = new cFlatten.Flattener(), result;
+    var flat = new cFlatten.Flattener().setKeepDates (driver.keepDates), result;
     if (!Array.isArray(obs)) {
       result =  flat.unFlatten(obs);
     }
@@ -195,11 +194,11 @@ function DbAbstraction ( driverLibrary , options) {
     if (!obs) return null;
     if (Array.isArray(obs)) {
       return obs.map(function(d) {
-        return new cFlatten.Flattener(optConstraints ? self.getEnums().SETTINGS.CONSTRAINT : null).flatten(d);
+        return new cFlatten.Flattener(optConstraints ? self.getEnums().SETTINGS.CONSTRAINT : null).setKeepDates (driver.keepDates).flatten(d);
       });
     }
     else {
-      return new cFlatten.Flattener(optConstraints ? self.getEnums().SETTINGS.CONSTRAINT : null).flatten(obs);
+      return new cFlatten.Flattener(optConstraints ? self.getEnums().SETTINGS.CONSTRAINT : null).setKeepDates (driver.keepDates).flatten(obs);
     }
   };
   
@@ -237,14 +236,15 @@ function DbAbstraction ( driverLibrary , options) {
   this.dropFields = function ( drop , keyName , obs) {
     
     // just in case its not an array
+
     if (!Array.isArray(drop)) drop = drop ? [drop] : [];
     if (!Array.isArray(obs)) obs = obs ? [obs] : [] ;
     
     // drop all the unwanted fields
     return obs.reduce(function (p,c) {
-      
+     
       // split up the object into keys and data, and drop any unwanted field.
-      var x = Object.keys(c).reduce(function (cp,cc) {
+      var x =  Object.keys(c).reduce(function (cp,cc) {
         // we keep it
         if(drop.indexOf(cc) === -1) {
           cp.ob[cc] = c[cc];
@@ -857,7 +857,9 @@ function DbAbstraction ( driverLibrary , options) {
   this.makeQuote = function (item,optForce,optTheQuote) {
     // add quotes if necessary
     var theQuote = optTheQuote || "'";
-    if ( ( optForce && optForce.toUpperCase() === "STRING") || (!optForce && typeof item === "string") ) {
+    var fType = optForce ? optForce.toUpperCase() : '';
+    Logger.log('optforce ' + fType);
+    if ( ( fType !== "NUMBER") || (!fType && (typeof item === "string" || cUseful.isDateObject(item))) ) {
       return theQuote + item.toString().replace(theQuote, "\\" + theQuote ) + theQuote;
     }
     else {
@@ -1011,8 +1013,8 @@ function DbAbstraction ( driverLibrary , options) {
     });
     
     if (queryOb) {
-      var fob = new cFlatten.Flattener(enums.SETTINGS.CONSTRAINT).flatten(queryOb);
-      var f = new cFlatten.Flattener();
+      var fob = new cFlatten.Flattener(enums.SETTINGS.CONSTRAINT).setKeepDates (driver.keepDates).flatten(queryOb);
+      var f = new cFlatten.Flattener().setKeepDates (driver.keepDates);
       sData = sData.filter (function (row,i) {
         var rd = f.flatten(row.d.data ? row.d.data : row.d);
         return Object.keys(fob).every(function(k) {
