@@ -30,9 +30,9 @@ var DriverFusion = function (handler,tableId,title,fusionOb) {
   var siloId = tableId;
   var self = this;
   var parentHandler = handler;
-  
+  parentHandler.flatten
   var enums = parentHandler.getEnums(); 
-    // im not able to do transactions
+  // im not able to do transactions
   self.transactionCapable = false;
   
   // i  need transaction locking
@@ -41,6 +41,9 @@ var DriverFusion = function (handler,tableId,title,fusionOb) {
   // i am aware of transactions and know about the locking i should do
   self.transactionAware = true;
 
+  // i want to keep dates
+  self.keepDates = true; 
+  
   self.getType = function () {
     return enums.DB.FUSION;
   };
@@ -339,9 +342,10 @@ var DriverFusion = function (handler,tableId,title,fusionOb) {
     obs.forEach (function(u) {
       var d = parentHandler.flatten(u);
       Object.keys(d).forEach(function(c) {
+        Logger.log(typeof(d[c]) + '-' + c +'-'+ cols[c]);
         if (cols.hasOwnProperty(c)){
           if (cols[c] === 'undefined') {
-            cols[c] = typeof d[c];
+            cols[c] = cUseful.isDateObject(d[c]) ? 'DATETIME': typeof d[c];
           }
           else if (cols[c] !== typeof d[c] && typeof d[c] !== 'undefined') {
             // this is a mixed type
@@ -350,8 +354,10 @@ var DriverFusion = function (handler,tableId,title,fusionOb) {
           }
         }
         else {
-          // - its a new one (boolean not available in fusion)
-          cols[c] = (typeof d[c] === "boolean" ? "string" : typeof d[c]);
+
+          // - its a new one (boolean not available in fusion) .. added object to treat everything else as string
+          cols[c] = (typeof d[c] === "boolean" || cUseful.isObject(d[c]) ? "string" : typeof d[c]);
+          Logger.log('set cols[c] to ' + cols[c]);
         }
       });
     });
@@ -367,10 +373,12 @@ var DriverFusion = function (handler,tableId,title,fusionOb) {
     
     // add any that are missing
     Object.keys(cols).forEach(function(p) {
+
       if (!fCols || (fCols && !fCols.hasOwnProperty(p))) {
         
         
         var cob = {name:p,type:(cols[p] === 'MIX' || typeof cols[p] === 'undefined') ? "STRING" : cols[p].toUpperCase()};
+
         var fr = parentHandler.rateLimitExpBackoff ( function () { 
           
           return FusionTables.Column.insert(cob, siloId); 
@@ -397,7 +405,6 @@ var DriverFusion = function (handler,tableId,title,fusionOb) {
       try {
         // all the columns in the data
         var cols = colsInData_(obs);
-
         // add any new ones and return full set
         var fCols = addMissingCols_ (cols);
 
@@ -416,6 +423,7 @@ var DriverFusion = function (handler,tableId,title,fusionOb) {
                 .join(",") + ")" + 
                 " VALUES (" + 
                 Object.keys(d).map(function(k){ 
+                 
                   return parentHandler.makeQuote(parentHandler.escapeQuotes(d[k]),fCols[k].type); 
                 })
                 .join(",") +")" ;
@@ -439,6 +447,7 @@ var DriverFusion = function (handler,tableId,title,fusionOb) {
             
             // write it
             var r = parentHandler.rateLimitExpBackoff ( function () { 
+              Logger.log(sqlString);
               return FusionTables.Query.sql(sqlString); 
             } ) ;
             //build up handle keys
