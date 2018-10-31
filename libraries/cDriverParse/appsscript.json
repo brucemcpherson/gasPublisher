@@ -1,0 +1,11 @@
+{
+  "timeZone": "Europe/London",
+  "dependencies": {
+    "libraries": [{
+      "userSymbol": "cParseCom",
+      "libraryId": "17Og7-oAPxubIB38lXSniOMcMWkH9I9FxOaLIeIeAACg__QaVxld-UHIb",
+      "version": "16"
+    }]
+  },
+  "exceptionLogging": "STACKDRIVER"
+}
