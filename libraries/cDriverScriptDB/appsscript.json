@@ -1,0 +1,11 @@
+{
+  "timeZone": "Europe/London",
+  "dependencies": {
+    "libraries": [{
+      "userSymbol": "cFlatten",
+      "libraryId": "12actArnmhP0hZTQng9Ysav1ZA3xfrkm1JA024mxDx4x4MEcPlc8Y2YDY",
+      "version": "8"
+    }]
+  },
+  "exceptionLogging": "STACKDRIVER"
+}
