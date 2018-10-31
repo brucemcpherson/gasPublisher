@@ -1,0 +1,19 @@
+{
+  "timeZone": "Europe/London",
+  "dependencies": {
+    "libraries": [{
+      "userSymbol": "heatMap",
+      "libraryId": "1AgDoYBAT5DA79CJuhEOHLp4cM53vuZ-u7qZJllWm7D7gFaVjIAu5clfT",
+      "version": "6"
+    }, {
+      "userSymbol": "mcpher",
+      "libraryId": "1hhJ8M6z99XccL8WRq2d24-pWGwhq8EfYNaQIQV0CEe5gE1HbBoF4X9W_",
+      "version": "66"
+    }]
+  },
+  "webapp": {
+    "access": "ANYONE_ANONYMOUS",
+    "executeAs": "USER_DEPLOYING"
+  },
+  "exceptionLogging": "STACKDRIVER"
+}
