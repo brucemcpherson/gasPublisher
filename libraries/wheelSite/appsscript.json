@@ -1,0 +1,27 @@
+{
+  "timeZone": "Europe/London",
+  "dependencies": {
+    "libraries": [{
+      "userSymbol": "myStuff",
+      "libraryId": "11ElSkBvx4DMqGncy8sxZKNXZrnlrpLhTuyVL9N0tNm95nGwkGVoflVD8",
+      "version": "14"
+    }, {
+      "userSymbol": "cGoa",
+      "libraryId": "1v_l4xN3ICa0lAW315NQEzAHPSoNiFdWHsMEwj2qA5t9cgZ5VWci2Qxv2",
+      "version": "22"
+    }, {
+      "userSymbol": "mcpher",
+      "libraryId": "1hhJ8M6z99XccL8WRq2d24-pWGwhq8EfYNaQIQV0CEe5gE1HbBoF4X9W_",
+      "version": "66"
+    }, {
+      "userSymbol": "cGcsStore",
+      "libraryId": "1w0dgijlIMA_o5p63ajzcaa_LJeUMYnrrSgfOzLKHesKZJqDCzw36qorl",
+      "version": "4"
+    }]
+  },
+  "webapp": {
+    "access": "ANYONE_ANONYMOUS",
+    "executeAs": "USER_DEPLOYING"
+  },
+  "exceptionLogging": "STACKDRIVER"
+}
