@@ -1,0 +1,19 @@
+{
+  "timeZone": "Europe/London",
+  "dependencies": {
+    "libraries": [{
+      "userSymbol": "moment",
+      "libraryId": "1HKzOd7-49gNJ1I4a3yamEh-zcnj4LfjRSG1iOiUjLPIAh1nQzCcahtPK",
+      "version": "1"
+    }, {
+      "userSymbol": "SunCalc",
+      "libraryId": "16kBE3D5a91ekr96oCpmXPxzU96icR_2x1RzjD30OUF3d-lRORJ8yKouS",
+      "version": "1"
+    }]
+  },
+  "webapp": {
+    "access": "ANYONE_ANONYMOUS",
+    "executeAs": "USER_DEPLOYING"
+  },
+  "exceptionLogging": "STACKDRIVER"
+}
