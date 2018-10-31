@@ -1,0 +1,27 @@
+{
+  "timeZone": "America/Mexico_City",
+  "dependencies": {
+    "libraries": [{
+      "userSymbol": "university",
+      "libraryId": "1UCC13kKcOxS5TiI41pM7P_ACulvN-6tKHJDn7ixW_N3fGi4EE_sFiq3J",
+      "version": "2"
+    }, {
+      "userSymbol": "blister",
+      "libraryId": "11TvZM3OIzemIFWu1rvO7xacg60q6FwSsdjh7cg0p-G78oQxOSteQi-uI",
+      "version": "7"
+    }, {
+      "userSymbol": "cDriverMongoLab",
+      "libraryId": "11N6camwOikILS28dwqvIlv44D1y0JMCTL9IeeUKkDV1amGvjWIeg-KbH",
+      "version": "6"
+    }, {
+      "userSymbol": "cDbAbstraction",
+      "libraryId": "1Ddsb4Y-QDUqcw9Fa-rJKM3EhG2caosS9Nhch7vnQWXP7qkaMmb1wjmTl",
+      "version": "37"
+    }, {
+      "userSymbol": "cRipDB",
+      "libraryId": "1H6jyNqh7ZPO356OM42KBoXg16eyrr0o1vSztE-l-HbZjKZ-N4s6hUoUb",
+      "version": "3"
+    }]
+  },
+  "exceptionLogging": "STACKDRIVER"
+}
