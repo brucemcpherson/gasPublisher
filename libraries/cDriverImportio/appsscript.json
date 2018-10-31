@@ -1,0 +1,11 @@
+{
+  "timeZone": "Europe/London",
+  "dependencies": {
+    "libraries": [{
+      "userSymbol": "importio",
+      "libraryId": "1H6pxRzqW-UxW4Ihdd8XfmpIwU1qPyRxzVw0AkLE5_hfHMGVhwk4O4atu",
+      "version": "3"
+    }]
+  },
+  "exceptionLogging": "STACKDRIVER"
+}
