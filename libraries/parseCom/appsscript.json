@@ -1,0 +1,15 @@
+{
+  "timeZone": "Europe/London",
+  "dependencies": {
+    "libraries": [{
+      "userSymbol": "sjclEncryption",
+      "libraryId": "19dEhJYSTE3oqvvjtbrVQAxGd9PPAtSP4Uv_KvBHE7qeug4vu2BSOAJEN",
+      "version": "6"
+    }, {
+      "userSymbol": "cParseCom",
+      "libraryId": "17Og7-oAPxubIB38lXSniOMcMWkH9I9FxOaLIeIeAACg__QaVxld-UHIb",
+      "version": "16"
+    }]
+  },
+  "exceptionLogging": "STACKDRIVER"
+}
