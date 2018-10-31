@@ -1,0 +1,27 @@
+{
+  "timeZone": "Europe/London",
+  "dependencies": {
+    "libraries": [{
+      "userSymbol": "blister",
+      "libraryId": "11TvZM3OIzemIFWu1rvO7xacg60q6FwSsdjh7cg0p-G78oQxOSteQi-uI",
+      "version": "7"
+    }, {
+      "userSymbol": "cDbAbstraction",
+      "libraryId": "1Ddsb4Y-QDUqcw9Fa-rJKM3EhG2caosS9Nhch7vnQWXP7qkaMmb1wjmTl",
+      "version": "37"
+    }, {
+      "userSymbol": "cDriverMongoLab",
+      "libraryId": "11N6camwOikILS28dwqvIlv44D1y0JMCTL9IeeUKkDV1amGvjWIeg-KbH",
+      "version": "6"
+    }, {
+      "userSymbol": "cRipDB",
+      "libraryId": "1H6jyNqh7ZPO356OM42KBoXg16eyrr0o1vSztE-l-HbZjKZ-N4s6hUoUb",
+      "version": "3"
+    }]
+  },
+  "webapp": {
+    "access": "ANYONE_ANONYMOUS",
+    "executeAs": "USER_DEPLOYING"
+  },
+  "exceptionLogging": "STACKDRIVER"
+}
