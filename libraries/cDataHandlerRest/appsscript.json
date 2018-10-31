@@ -1,0 +1,11 @@
+{
+  "timeZone": "Europe/London",
+  "dependencies": {
+    "libraries": [{
+      "userSymbol": "cDataHandler",
+      "libraryId": "1jw6jaQaCHI1LYVUlxfk1jKQNWTq9j60xoHP5dxV5AwdqI7B22mVJKwfA",
+      "version": "69"
+    }]
+  },
+  "exceptionLogging": "STACKDRIVER"
+}
