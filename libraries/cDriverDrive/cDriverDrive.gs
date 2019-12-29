@@ -289,13 +289,14 @@ var DriverDrive = function (handler,tableName,id,DriveOb) {
    * @param {object} obs what to update it to
    * @return {object} results from selected handler
    */
-  self.update = function (keys,obs) {   
-    return delegate.update(keys,obs);
+  self.update = function (keys,obs) {  
+    var result = delegate.update(keys,obs);
+    return result;
   };
   
   self.updateGuts = function (keys,obs) {
     var memory = self.getMem();
-    var r = memory.update (keys,obs,'key');
+    var r = memory.update (keys,obs);
     return r.handleCode < 0 ? r : self.putBack (memory);
   }
 
