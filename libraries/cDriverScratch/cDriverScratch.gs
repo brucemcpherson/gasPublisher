@@ -347,7 +347,7 @@ var DriverScratch = function (handler,keyName,id,optDriverOb,accessToken, option
   
   self.updateGuts = function (keys,obs) {
     var memory = self.getMem();
-    var r = memory.update (keys,obs,'key');
+    var r = memory.update (keys,obs);
     return r.handleCode < 0 ? r : self.putBack (memory);
   }
   
