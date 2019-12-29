@@ -12,12 +12,11 @@ var eArgs;
   * @param {String=} query json query to be used along with scriptdb
   * @return {object} depends on format selected
  */
-
 function doGet(e) {
 
     //----------
     // need to put this in a global var for callback from template
-    eArgs = e;
+  eArgs = e || {parameter: {}};
     // set the arg defaults
     mcpher.setGasPubDefaults (eArgs);
     // convert source to correct format
